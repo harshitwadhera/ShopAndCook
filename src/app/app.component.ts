@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
+<<<<<<< HEAD
   title = 'ShopAndCook';
+=======
+  title = 'shopandcook';
+
+  loadedFeature ;
+
+>>>>>>> origin/ShopAndCookFinal
 }

@@ -3,7 +3,11 @@
   "version": 1, 
   "newProjectRoot": "projects",
   "projects": {
+<<<<<<< HEAD
     "ShopAndCook": {
+=======
+    "shopandcook": {
+>>>>>>> origin/ShopAndCookFinal
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +21,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+<<<<<<< HEAD
             "outputPath": "dist/ShopAndCook",
+=======
+            "outputPath": "dist/shopandcook",
+>>>>>>> origin/ShopAndCookFinal
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,18 +75,30 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+<<<<<<< HEAD
             "browserTarget": "ShopAndCook:build"
           },
           "configurations": {
             "production": {
               "browserTarget": "ShopAndCook:build:production"
+=======
+            "browserTarget": "shopandcook:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "shopandcook:build:production"
+>>>>>>> origin/ShopAndCookFinal
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
+<<<<<<< HEAD
             "browserTarget": "ShopAndCook:build"
+=======
+            "browserTarget": "shopandcook:build"
+>>>>>>> origin/ShopAndCookFinal
           }
         },
         "test": {
@@ -115,15 +135,27 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
+<<<<<<< HEAD
             "devServerTarget": "ShopAndCook:serve"
           },
           "configurations": {
             "production": {
               "devServerTarget": "ShopAndCook:serve:production"
+=======
+            "devServerTarget": "shopandcook:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "shopandcook:serve:production"
+>>>>>>> origin/ShopAndCookFinal
             }
           }
         }
       }
     }},
+<<<<<<< HEAD
   "defaultProject": "ShopAndCook"
+=======
+  "defaultProject": "shopandcook"
+>>>>>>> origin/ShopAndCookFinal
 }

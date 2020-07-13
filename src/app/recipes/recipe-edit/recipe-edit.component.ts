@@ -60,17 +60,30 @@ export class RecipeEditComponent implements OnInit {
               })    
               this.setValueOfIngredient(this.selectedRecipe.ingredient);    
           
-            }      
+            }    
           })          
         }else{
           alert("Something went Wrong please try again..")
         }
 
-        if(this.selectedRecipe === undefined){
-          alert("Something went Wrong please try again..");
-        }
+        // if(this.selectedRecipe === undefined){
+        //   alert("Something went Wrong please try again..");
+        // }
          
         // this.selectedRecipe =  this.recipeServce.getSelectedRecipe(this.id);
+        if(this.selectedRecipe === undefined){
+          this.selectedRecipe =  this.recipeServce.getSelectedRecipe(this.id);
+          this.recipeForm.patchValue({
+  
+            name:this.selectedRecipe.name,
+            imagePath:this.selectedRecipe.imagePath,
+           
+            description:this.selectedRecipe.description,
+            
+          
+          }) 
+          this.setValueOfIngredient(this.selectedRecipe.ingredient);       
+         }
        
       }
     )
@@ -137,6 +150,7 @@ export class RecipeEditComponent implements OnInit {
    {recipe:JSON.stringify(this.recipeForm.value)};
    this.recipeStore.dispatch(new RecipeActionClass.insertRecipe(formdata));
    this.editMode=false;
+  this.recipeServce.addOrUpdateRecipe(this.id,this.recipeForm.value);
    this.router.navigate(['/Recipes'],{relativeTo:this.Arouter});
   }
 
@@ -147,6 +161,9 @@ export class RecipeEditComponent implements OnInit {
   onCancel(){
     this.recipeForm.reset();
     this.router.navigate(['../'],{relativeTo:this.Arouter})
+  }
+  onDelete(){
+
   }
 
   onAddIngredient(){

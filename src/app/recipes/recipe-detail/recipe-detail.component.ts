@@ -30,12 +30,15 @@ post:boolean=false;
   //  this.id = this.router.snapshot.params['id'];
   
    // console.log(this.selectedRecipe.ingredients);   
-
+  
     
    this.router.params.subscribe(
     (param:Params) => {
       this.id = param['id'];
       if(this.id!=null){
+        this.selectedRecipe = this.recipeServce.getSelectedRecipe(this.id);
+       this.post =true;
+
       this.recipeStore.dispatch(new RecipeActionClass.getRecipeById(this.id));
 
       this.recipeStore.select(x => x.GetAllRecipeData).subscribe( my => {
@@ -53,6 +56,7 @@ post:boolean=false;
 }
   );
     
+  
 }
  // this.selectedRecipe = this.recipeServce.getSelectedRecipe(this.id);;
 
@@ -70,5 +74,8 @@ post:boolean=false;
   deleteARecipe(selectedRecipe:Recipe){
 this.recipeServce.deleteRecipe(selectedRecipe);
 this.routes.navigate(['../'],{relativeTo:this.router});
+let formdata=
+   {id:this.id};
+   this.recipeStore.dispatch(new RecipeActionClass.insertRecipe(formdata));
   }
 }

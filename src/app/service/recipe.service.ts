@@ -9,11 +9,21 @@ import { mergeMap,map,catchError } from 'rxjs/operators';
 @Injectable()
 export class RecipesService{
     insertRecipe(payload: any) {
+      if(payload.id !=undefined){
+
+        return this.http.delete('http://localhost:8080/deleteRecipe',{
+        headers:this.userHeaders,
+         withCredentials:true
+         ,params:payload
+      }).pipe(map(this.extractData.bind(this)),catchError((err) => this.handleErrorObservable(err)))
+
+      }else{
        return this.http.post('http://localhost:8080/insertRecipe',payload.recipe,{
         headers:this.userHeaders,
          withCredentials:true
          //,params:payload
       }).pipe(map(this.extractData.bind(this)),catchError((err) => this.handleErrorObservable(err)))
+    }
     }
     getAllRecipeById(param:String) {
       return this.http.get('http://localhost:8080/getAllRecipeById',{
@@ -59,10 +69,10 @@ export class RecipesService{
   recipeChanged= new Subject<Recipe[]>();
     
     private recipes: Recipe[] = [
-        new Recipe('1','A Test Recipe 1', 'This is simply a test 1', 'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
+        new Recipe('1','Burger', 'This is a Cheese Burger', 'https://i.ytimg.com/vi/a19EY3YNStA/maxresdefault.jpg',
         [new Ingredient('Buns',2),new Ingredient('Onions',1)]
         ),
-        new Recipe('2','A Test Recipe 2', 'This is simply a test 2', 'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
+        new Recipe('2','Pizza', 'Chicken Pizza with multiGrain Base', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQOJEtgphAv25ZGTBjTepNRzgUsC_wNti6WVA&usqp=CAU',
         [new Ingredient('Pizza Base',1),new Ingredient('Capsicum',1)]
         )
       ];
@@ -77,29 +87,29 @@ export class RecipesService{
         return this.recipes.find(r => r.id == id);
            //return this.recipes[ id];
       }
-      // getSelectedRecipes(id){
-      //   return this.recipes.slice();
-      // }
+      getSelectedRecipes(id){
+        return this.recipes.slice();
+      }
 
-      // addOrUpdateRecipe(id:String,recipe:Recipe){
-      //   let recipeFind =  this.getSelectedRecipe(id);
-      //   if(id != undefined && id.length>0 && recipeFind != undefined){
+      addOrUpdateRecipe(id:String,recipe:Recipe){
+        let recipeFind =  this.getSelectedRecipe(id);
+        if(id != undefined && id.length>0 && recipeFind != undefined){
           
-      //     recipe.id=id;
-      //       let index = this.recipes.indexOf(recipeFind);
-      //        this.recipes[index] = recipe;
+          recipe.id=id;
+            let index = this.recipes.indexOf(recipeFind);
+             this.recipes[index] = recipe;
        
           
 
-      //   }else{
-      //     const idNew = this.recipes.length +1;
+        }else{
+          const idNew = this.recipes.length +1;
           
-      //     recipe.id = idNew.toString();
-      //     this.recipes.push(recipe);
-      //   }
+          recipe.id = idNew.toString();
+          this.recipes.push(recipe);
+        }
 
-      //   this.recipeChanged.next(this.recipes.slice());
-      // }
+        this.recipeChanged.next(this.recipes.slice());
+      }
 
       deleteRecipe(selectedRecipe: Recipe) {
        let RecipeFind = this.getSelectedRecipe(selectedRecipe.id);
